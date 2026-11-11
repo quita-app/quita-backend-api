@@ -32,6 +32,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>3.2.0</version> <!-- not in the Boot BOM, so the version is pinned here -->
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>

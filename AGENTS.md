@@ -18,7 +18,7 @@ Os repos do Quita ficam lado a lado na mesma pasta. A documentação é do `quit
 
 Java 25 · Spring Boot 4.1.2 · Spring Web MVC com virtual threads · Spring Data JPA + Hibernate · Flyway · Spring Modulith · Spring Security (resource server de JWT) · PostgreSQL · Maven · JUnit 5, AssertJ, Mockito, Testcontainers.
 
-Versões fixadas: <!-- preencher no walking skeleton: Spring Boot, Spring Modulith, PostgreSQL -->
+Versões fixadas: Spring Boot 4.1.2 · Spring Modulith 2.1.1 · PostgreSQL 18 · springdoc-openapi 3.2.0
 
 ## Comandos
 
@@ -29,7 +29,7 @@ Versões fixadas: <!-- preencher no walking skeleton: Spring Boot, Spring Moduli
 | Testes | `./mvnw test` |
 | Build completo (testes + verificações) | `./mvnw verify` |
 | Um teste só | `./mvnw test -Dtest=ClassName#methodName` |
-| Gerar o `openapi.json` | <!-- preencher no walking skeleton --> |
+| Gerar o `openapi.json` | com a API rodando no perfil local: `curl -s localhost:8080/v3/api-docs -o openapi.json` |
 
 Docker precisa estar rodando para os testes (Testcontainers).
 
