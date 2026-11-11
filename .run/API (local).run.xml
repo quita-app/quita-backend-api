@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="API (local)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.quita.QuitaBackendApiApplication" />
+    <module name="quita-backend-api" />
+    <envs>
+      <env name="SPRING_PROFILES_ACTIVE" value="local" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

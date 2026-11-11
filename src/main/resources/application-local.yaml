@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/quita   # o PostgreSQL do compose.yaml (Parte 2)
+    username: quita
+    password: quita          # senha do banco descartável local, não é segredo
+  flyway:
+    enabled: true            # local: migra ao subir, por conveniência
+
+springdoc:
+  api-docs:
+    enabled: true            # local: serve o contrato para você gerar o openapi.json (Parte 9)
+  swagger-ui:
+    enabled: true
+  writer-with-default-pretty-printer: true   # JSON indentado: o diff do openapi.json fica legível

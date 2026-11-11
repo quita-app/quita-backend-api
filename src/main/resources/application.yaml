@@ -1,3 +1,43 @@
 spring:
   application:
     name: quita-backend-api
+
+  threads:
+    virtual:
+      enabled: true          # cada requisição roda numa virtual thread (ADR 0009). Explicado abaixo.
+
+  datasource:                # a conexão com o banco
+    url: ${DATABASE_URL}     # vem do ambiente; no Render, o endereço COM pool do Neon (guia 02)
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:                  # o pool de conexões (Parte 5)
+      maximum-pool-size: 5   # o plano gratuito do Neon limita conexões
+      connection-timeout: 5000   # ms: se não conseguir conexão em 5 s, desiste (CA2)
+
+  jpa:
+    open-in-view: false      # explicado abaixo
+    hibernate:
+      ddl-auto: validate     # o Hibernate só CONFERE se as tabelas batem com as classes; nunca altera o banco
+
+  flyway:
+    enabled: false           # na nuvem, a migração roda num passo próprio do deploy (guia 06), não na subida
+
+server:
+  shutdown: graceful         # ao desligar, termina as requisições em andamento antes de sair
+
+management:                  # o Actuator (Parte 5)
+  endpoints:
+    web:
+      exposure:
+        include: health,info # só esses dois ficam acessíveis pela web
+  endpoint:
+    health:
+      probes:
+        enabled: true        # cria /actuator/health/liveness e /readiness
+      show-components: always # mostra quais partes foram checadas ("db", "diskSpace"), sem os detalhes sensíveis
+
+springdoc:                   # o gerador do contrato da API (Parte 9)
+  api-docs:
+    enabled: false           # desligado por padrão: o contrato é versionado no repo, não servido em produção
+  swagger-ui:
+    enabled: false
