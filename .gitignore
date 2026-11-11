@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Quita harness
+# Personal agent files, never committed
+CLAUDE.local.md
+.claude/settings.local.json
+.learning/
+
+# Environment variables (only the example is committed)
+.env
+.env.*
+!.env.example
