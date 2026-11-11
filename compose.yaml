@@ -1,0 +1,21 @@
+name: quita                              # prefixo dos nomes: contêiner "quita-postgres-1", volume "quita_pg-data"
+
+services:
+  postgres:
+    image: postgres:18                   # MESMA versão do Neon
+    environment:
+      POSTGRES_DB: quita                 # cria o database "quita" na primeira subida
+      POSTGRES_USER: quita               # usuário dono do banco
+      POSTGRES_PASSWORD: quita           # só local: nunca uma senha real
+    ports:
+      - "5432:5432"                      # porta do Windows : porta do contêiner (a API conecta em localhost:5432)
+    volumes:
+      - pg-data:/var/lib/postgresql      # os dados sobrevivem a restart e a recriar o contêiner
+    healthcheck:                         # o Docker pergunta de tempos em tempos "o banco aceita conexão?"
+      test: ["CMD-SHELL", "pg_isready -U quita -d quita"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pg-data:                               # volume gerenciado pelo Docker
