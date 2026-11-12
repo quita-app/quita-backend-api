@@ -6,6 +6,8 @@ API do **Quita**, uma plataforma B2B de cobrança e renegociação de dívidas. 
 
 Os repos do Quita ficam lado a lado na mesma pasta. A documentação é do `quita-docs` e **não é copiada para cá**.
 
+**Consulte o grafo antes de ler um documento inteiro.** Rode `graphify query "<pergunta>"` na pasta acima deste repo (`..`, onde fica o `graphify-out/`) e leia só os arquivos e as linhas que ele apontar. Sem grafo, ou com o grafo desatualizado, use a tabela abaixo. Em conflito, o arquivo vence o grafo.
+
 | Preciso de | Leia |
 | --- | --- |
 | Vocabulário do domínio (nome em português ↔ nome em código) | `../quita-docs/GLOSSARY.md` (importado pelo `CLAUDE.md`) |
