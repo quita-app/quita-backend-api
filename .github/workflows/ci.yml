@@ -3,7 +3,7 @@ name: ci
 on:
   pull_request:                 # every PR, from any branch
   push:
-    branches: [main]            # and every merge into main (the deploy job, Part 6)
+    branches: [ main ]            # and every merge into main (the deploy job, Part 6)
 
 jobs:
   verify:
@@ -16,3 +16,26 @@ jobs:
           java-version: 25
           cache: maven          # reuses ~/.m2 between runs: faster builds
       - run: ./mvnw -B verify   # compile + all tests (ModularityTests, context test with real PostgreSQL)
+
+  deploy:
+    needs: verify                               # only after the tests pass
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'   # never on PRs
+    runs-on: ubuntu-latest
+    concurrency: deploy-demo                    # two merges in a row never deploy at the same time
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: maven
+      # 1) migrate through the DIRECT Neon endpoint, before the new code goes live
+      - name: Migrate database
+        run: >
+          ./mvnw -B flyway:migrate
+          -Dflyway.url="${{ secrets.DATABASE_MIGRATION_URL }}"
+          -Dflyway.user="${{ secrets.DATABASE_USERNAME }}"
+          -Dflyway.password="${{ secrets.DATABASE_PASSWORD }}"
+      # 2) only then ask Render to deploy (-f: a non-2xx answer fails the job)
+      - name: Trigger Render deploy
+        run: curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
