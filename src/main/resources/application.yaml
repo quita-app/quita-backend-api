@@ -41,3 +41,13 @@ springdoc:                   # o gerador do contrato da API (Parte 9)
     enabled: false           # desligado por padrão: o contrato é versionado no repo, não servido em produção
   swagger-ui:
     enabled: false
+---
+# Todo perfil, menos o local: uma linha JSON por log (formato Elastic Common Schema)
+spring:
+  config:
+    activate:
+      on-profile: "!local"
+logging:
+  structured:
+    format:
+      console: ecs
